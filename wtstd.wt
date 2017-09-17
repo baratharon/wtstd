@@ -1,0 +1,31 @@
+#meta:author  "BARATH, Aron"
+#meta:title   "Welltype Standard Library"
+#meta:version "0.5"
+
+declare
+{
+	pure function extra_lame_clz(uint x0) : uint;
+}
+
+#include "string_builder.inc"
+
+// this function shall be removed if the wt runtime support it
+pure function extra_lame_clz(uint x0) : uint
+{
+	uint x = x0;
+	uint n = 1u;
+
+	if(0u==x) { return 32u; }
+	if((x>>16u)==0u) { n, x = n + 16u, x << 16u; }
+	if((x>>24u)==0u) { n, x = n +  8u, x <<  8u; }
+	if((x>>28u)==0u) { n, x = n +  4u, x <<  4u; }
+	if((x>>30u)==0u) { n, x = n +  2u, x <<  2u; }
+	n = n - (x >> 31u);
+
+	return n;
+}
+
+main
+{
+	write("Welltype Standard Library\n");
+}

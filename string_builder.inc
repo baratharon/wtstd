@@ -1,0 +1,62 @@
+export
+{
+	private record string_builder
+	{
+		string buffer;
+		uint   length;
+		uint   capacity;
+	}
+
+	pure function append(mutable string_builder sb, string str);
+	pure function append(mutable string_builder sb, char ch);
+	pure function tos(string_builder sb) : string;
+}
+
+pure function sb_prealloc(mutable string_builder sb, uint len)
+{
+	uint new_capacity = sb.capacity + len;
+	if(0u==new_capacity) { new_capacity = 32u + len; }
+	new_capacity = 1u << (32u - extra_lame_clz(new_capacity));
+	sb.buffer = sb.buffer + chars(' ', new_capacity - strlen(sb.buffer));
+	sb.capacity = new_capacity;
+}
+
+pure function append(mutable string_builder sb, string str)
+{
+	if(empty(str)) { return; }
+	uint len = strlen(str);
+	if(len+sb.length<sb.capacity) { sb_prealloc(sb, len); }
+	strcpy(sb.buffer, sb.length, str, 0u, len);
+	sb.length = sb.length + len;
+}
+
+pure function append(mutable string_builder sb, char ch)
+{
+	if(sb.length==sb.capacity) { sb_prealloc(sb, 1u); }
+	sb.buffer[sb.length] = ch;
+	sb.length = sb.length + 1u;
+}
+
+pure function tos(string_builder sb) : string
+{
+	return substr(sb.buffer, 0u, sb.length);
+}
+
+//----------------------------------------------------------------
+// extra stuff, do we need these?
+
+/*
+export
+{
+	pure function append(mutable string_builder sb, i8 n);
+	pure function append(mutable string_builder sb, u8 n);
+	pure function append(mutable string_builder sb, i16 n);
+	pure function append(mutable string_builder sb, u16 n);
+	pure function append(mutable string_builder sb, i32 n);
+	pure function append(mutable string_builder sb, u32 n);
+	pure function append(mutable string_builder sb, i64 n);
+	pure function append(mutable string_builder sb, u64 n);
+	pure function append(mutable string_builder sb, f32 n);
+	pure function append(mutable string_builder sb, f64 n);
+}
+*/

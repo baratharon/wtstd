@@ -1,5 +1,5 @@
 SRC = wtstd.wt
-SRCX = string_builder.inc
+SRCX = string_builder.wt
 LIBNAME = wtstd.wtb
 INCNAME = wtstd.inc
 

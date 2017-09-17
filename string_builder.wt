@@ -25,7 +25,7 @@ pure function append(mutable string_builder sb, string str)
 {
 	if(empty(str)) { return; }
 	uint len = strlen(str);
-	if(len+sb.length<sb.capacity) { sb_prealloc(sb, len); }
+	if(len+sb.length>sb.capacity) { sb_prealloc(sb, len); }
 	strcpy(sb.buffer, sb.length, str, 0u, len);
 	sb.length = sb.length + len;
 }

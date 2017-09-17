@@ -14,9 +14,9 @@ export
 
 pure function sb_prealloc(mutable string_builder sb, uint len)
 {
-	uint new_capacity = sb.capacity + len;
-	if(0u==new_capacity) { new_capacity = 32u + len; }
-	new_capacity = 1u << (32u - extra_lame_clz(new_capacity));
+	uint new_capacity = sb.capacity;
+	if(0u==new_capacity) { new_capacity = 32u; }
+	new_capacity = 1u << (32u - extra_lame_clz(new_capacity+len));
 	sb.buffer = sb.buffer + chars(' ', new_capacity - strlen(sb.buffer));
 	sb.capacity = new_capacity;
 }

@@ -1,0 +1,8 @@
+#include "../wtstd.inc"
+
+main
+{
+	string_builder sb;
+	append(sb, "Hello World!\n");
+	write(tos(sb));
+}

@@ -7,7 +7,7 @@ declare
 	pure function extra_lame_clz(uint x0) : uint;
 }
 
-#include "string_builder.inc"
+#include "string_builder.wt"
 
 // this function shall be removed if the wt runtime support it
 pure function extra_lame_clz(uint x0) : uint

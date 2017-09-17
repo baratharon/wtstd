@@ -5,5 +5,5 @@ INCNAME = wtstd.inc
 
 WTFLAGS = -gen-import -impinc-name $(INCNAME) -add-hash BLAKE-256 -labels-top
 
-$(LIBNAME): $(SRC)
+$(LIBNAME): $(SRC) $(SRCX)
 	wtc -o $(LIBNAME) $(WTFLAGS) $(SRC)

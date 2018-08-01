@@ -3,7 +3,7 @@
 main
 {
 	string_builder sb;
-	append(sb, "Hello");
+	append(sb, "Hello ");
 	append(sb, "World!");
 	append(sb, "\n");
 	write(tos(sb));
